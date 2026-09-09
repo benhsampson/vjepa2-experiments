@@ -1,12 +1,13 @@
 """Stream a tiny Kinetics-400 train subset, or replay its checked-in manifest."""
+
 import argparse
-from collections import Counter
 import csv
 import hashlib
 import io
 import json
-from pathlib import Path
 import tarfile
+from collections import Counter
+from pathlib import Path
 
 import decord
 import numpy as np
@@ -29,8 +30,7 @@ def inspect_video(path):
     frames = vr.get_batch(indices).asnumpy()
     if frames.ndim != 4 or frames.shape[-1] != 3:
         raise ValueError(f"Unexpected decoded shape: {frames.shape}")
-    return dict(frames=len(vr), fps=float(vr.get_avg_fps()),
-                height=int(frames.shape[1]), width=int(frames.shape[2]))
+    return dict(frames=len(vr), fps=float(vr.get_avg_fps()), height=int(frames.shape[1]), width=int(frames.shape[2]))
 
 
 def download_subset(output, manifest_path, count):
@@ -103,9 +103,15 @@ def download_subset(output, manifest_path, count):
                     if wanted is not None and digest != wanted[member.name]["sha256"]:
                         raise ValueError(f"Checksum mismatch for {name}")
                     partial.replace(destination)
-                    clip = dict(filename=name, archive=url, member=member.name,
-                                sha256=digest, bytes=destination.stat().st_size,
-                                **annotation, **info)
+                    clip = dict(
+                        filename=name,
+                        archive=url,
+                        member=member.name,
+                        sha256=digest,
+                        bytes=destination.stat().st_size,
+                        **annotation,
+                        **info,
+                    )
                     if replay:
                         clip = wanted.pop(member.name)
                     rows.append(clip)
@@ -119,15 +125,20 @@ def download_subset(output, manifest_path, count):
         rows = replay["clips"]
         manifest = replay
     else:
-        manifest = dict(dataset="Kinetics-400", split="train", count=count,
-                        selection="First decodable annotated clips in archive order; <=2 per class; >=64 frames",
-                        annotations_url=BASE + "annotations/train.csv",
-                        annotations_sha256=hashlib.sha256(annotation_bytes).hexdigest(),
-                        clips=rows, rejected=rejected)
+        manifest = dict(
+            dataset="Kinetics-400",
+            split="train",
+            count=count,
+            selection="First decodable annotated clips in archive order; <=2 per class; >=64 frames",
+            annotations_url=BASE + "annotations/train.csv",
+            annotations_sha256=hashlib.sha256(annotation_bytes).hexdigest(),
+            clips=rows,
+            rejected=rejected,
+        )
         manifest_path.parent.mkdir(parents=True, exist_ok=True)
         manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
     # Native VideoDataset format: absolute path then integer label, no header.
-    labels = {label: i for i, label in enumerate(sorted({r['label'] for r in annotations.values()}))}
+    labels = {label: i for i, label in enumerate(sorted({r["label"] for r in annotations.values()}))}
     (output / "paths.csv").write_text("".join(f"{output / r['filename']} {labels[r['label']]}\n" for r in rows))
     (output / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     print(f"Verified {len(rows)} clips, {len(set(r['label'] for r in rows))} classes", flush=True)

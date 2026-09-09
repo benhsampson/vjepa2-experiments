@@ -1,0 +1,959 @@
+{
+  "recorded_utc": "2026-09-09T02:35:56.920264+00:00",
+  "checkpoint_sha256": "7aae1a3c7a31d258af9c985388b5d2f20587469380f2e11b54d7876ac8cfe58a",
+  "smoke": {
+    "inference": [
+      {
+        "filename": "-JEFz5Z0EWU_000010_000020.mp4",
+        "label": "peeling apples",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": 0.0027792041655629873,
+        "std": 1.7652784585952759,
+        "token_variance": 1.5040321350097656,
+        "inference_seconds": 0.5578893013298512,
+        "peak_allocated_bytes": 11446638592,
+        "peak_reserved_bytes": 11945377792,
+        "repeat_max_abs_difference": 0.0,
+        "repeat_tolerance": {
+          "rtol": 0.0001,
+          "atol": 1e-05
+        }
+      },
+      {
+        "filename": "-FjBFRT36pU_000100_000110.mp4",
+        "label": "kitesurfing",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": 0.008006514981389046,
+        "std": 1.8251100778579712,
+        "token_variance": 1.489250659942627,
+        "inference_seconds": 0.24499951675534248,
+        "peak_allocated_bytes": 11439020032,
+        "peak_reserved_bytes": 11945377792
+      }
+    ],
+    "inference_summary": {
+      "samples": 2,
+      "passed": true,
+      "embedding_shape": [
+        2,
+        1664
+      ],
+      "between_clip_variance": 0.6121163368225098,
+      "max_peak_allocated_bytes": 11446638592,
+      "max_peak_reserved_bytes": 11945377792,
+      "mean_inference_seconds": 0.4014444090425968
+    },
+    "loading": {
+      "checkpoint": "artifacts/readiness/checkpoints/vjepa2_1_vitG_384.pt",
+      "checkpoint_keys": [
+        "encoder",
+        "predictor",
+        "opt",
+        "scaler",
+        "target_encoder",
+        "epoch",
+        "loss",
+        "batch_size",
+        "world_size",
+        "lr"
+      ],
+      "factory": "src.hub.backbones.vjepa2_1_vit_gigantic_384",
+      "strict": true,
+      "encoder": {
+        "parameters": 1845216768,
+        "state_tensors": 590,
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "predictor": {
+        "parameters": 59433472,
+        "state_tensors": 308,
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "seconds": 31.92259069159627
+    },
+    "run": {
+      "mode": "smoke",
+      "seed": 20260909,
+      "torch": "2.8.0+cu128",
+      "cuda": "12.8",
+      "gpu": "NVIDIA RTX PRO 4500 Blackwell",
+      "commit": "661a3304d364cd3d4972cb5c4ea3ce1c5fa7dcad",
+      "parameter_dtype": "float32",
+      "autocast_dtype": "bfloat16",
+      "attention": "native SDPA",
+      "frames": 16,
+      "frame_step": 4,
+      "resolution": 384,
+      "batch_size": 1,
+      "temporal_segments": 1,
+      "spatial_view": "center of native three-view transform"
+    }
+  },
+  "inference": {
+    "inference": [
+      {
+        "filename": "-JEFz5Z0EWU_000010_000020.mp4",
+        "label": "peeling apples",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": 0.0027792041655629873,
+        "std": 1.7652784585952759,
+        "token_variance": 1.5040321350097656,
+        "inference_seconds": 0.576246801763773,
+        "peak_allocated_bytes": 11446638592,
+        "peak_reserved_bytes": 11945377792,
+        "repeat_max_abs_difference": 0.0,
+        "repeat_tolerance": {
+          "rtol": 0.0001,
+          "atol": 1e-05
+        }
+      },
+      {
+        "filename": "-FjBFRT36pU_000100_000110.mp4",
+        "label": "kitesurfing",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": 0.008006514981389046,
+        "std": 1.8251100778579712,
+        "token_variance": 1.489250659942627,
+        "inference_seconds": 0.2450818307697773,
+        "peak_allocated_bytes": 11439020032,
+        "peak_reserved_bytes": 11945377792
+      },
+      {
+        "filename": "-2-nYjSwo8U_000042_000052.mp4",
+        "label": "shearing sheep",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": 0.0006194092566147447,
+        "std": 1.7685093879699707,
+        "token_variance": 1.4159806966781616,
+        "inference_seconds": 0.2455832865089178,
+        "peak_allocated_bytes": 11439020032,
+        "peak_reserved_bytes": 11945377792
+      },
+      {
+        "filename": "-JrthcbKe60_000132_000142.mp4",
+        "label": "trimming or shaving beard",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": 0.0037649653386324644,
+        "std": 1.7873965501785278,
+        "token_variance": 1.6705111265182495,
+        "inference_seconds": 0.2455322351306677,
+        "peak_allocated_bytes": 11439020032,
+        "peak_reserved_bytes": 11945377792
+      },
+      {
+        "filename": "-K74JEPrJJQ_000043_000053.mp4",
+        "label": "milking cow",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": -0.004314915742725134,
+        "std": 1.7940850257873535,
+        "token_variance": 1.5079376697540283,
+        "inference_seconds": 0.24561555683612823,
+        "peak_allocated_bytes": 11439020032,
+        "peak_reserved_bytes": 11945377792
+      },
+      {
+        "filename": "-9t1GeluG6w_000010_000020.mp4",
+        "label": "baby waking up",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": 0.007786917965859175,
+        "std": 1.7797317504882812,
+        "token_variance": 1.3448783159255981,
+        "inference_seconds": 0.24570081010460854,
+        "peak_allocated_bytes": 11439020032,
+        "peak_reserved_bytes": 11945377792
+      },
+      {
+        "filename": "-8qfEe5m5mg_000009_000019.mp4",
+        "label": "playing harp",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": -0.00436242064461112,
+        "std": 1.7825593948364258,
+        "token_variance": 1.5377196073532104,
+        "inference_seconds": 0.2457608114928007,
+        "peak_allocated_bytes": 11439020032,
+        "peak_reserved_bytes": 11945377792
+      },
+      {
+        "filename": "-DvLehbk7TY_000078_000088.mp4",
+        "label": "high kick",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": 0.03085969388484955,
+        "std": 1.8196481466293335,
+        "token_variance": 1.2222634553909302,
+        "inference_seconds": 0.2453589290380478,
+        "peak_allocated_bytes": 11439020032,
+        "peak_reserved_bytes": 11945377792
+      },
+      {
+        "filename": "-6R3wpks5Jg_000319_000329.mp4",
+        "label": "playing ukulele",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": 0.007999581284821033,
+        "std": 1.8149505853652954,
+        "token_variance": 1.598588466644287,
+        "inference_seconds": 0.2457759827375412,
+        "peak_allocated_bytes": 11439020032,
+        "peak_reserved_bytes": 11945377792
+      },
+      {
+        "filename": "-1dWGnhjB2A_000049_000059.mp4",
+        "label": "headbanging",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": 0.0018203435465693474,
+        "std": 1.7654976844787598,
+        "token_variance": 1.5177124738693237,
+        "inference_seconds": 0.24600085988640785,
+        "peak_allocated_bytes": 11439020032,
+        "peak_reserved_bytes": 11945377792
+      },
+      {
+        "filename": "-86xbR-_1E8_000335_000345.mp4",
+        "label": "playing bass guitar",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": 0.009258883073925972,
+        "std": 1.8093990087509155,
+        "token_variance": 1.6663401126861572,
+        "inference_seconds": 0.2460816130042076,
+        "peak_allocated_bytes": 11439020032,
+        "peak_reserved_bytes": 11945377792
+      },
+      {
+        "filename": "-6vMUadPeCI_000000_000010.mp4",
+        "label": "front raises",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": 0.0022550367284566164,
+        "std": 1.7756010293960571,
+        "token_variance": 1.3837482929229736,
+        "inference_seconds": 0.245915487408638,
+        "peak_allocated_bytes": 11439020032,
+        "peak_reserved_bytes": 11945377792
+      },
+      {
+        "filename": "-JRT9aCAVsA_000032_000042.mp4",
+        "label": "cooking egg",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": 0.010301362723112106,
+        "std": 1.7919244766235352,
+        "token_variance": 1.5058422088623047,
+        "inference_seconds": 0.2458100337535143,
+        "peak_allocated_bytes": 11439020032,
+        "peak_reserved_bytes": 11945377792
+      },
+      {
+        "filename": "-LTP_3-9EHc_000315_000325.mp4",
+        "label": "waxing eyebrows",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": 0.009959527291357517,
+        "std": 1.7748568058013916,
+        "token_variance": 1.4254891872406006,
+        "inference_seconds": 0.24585026502609253,
+        "peak_allocated_bytes": 11439020032,
+        "peak_reserved_bytes": 11945377792
+      },
+      {
+        "filename": "-1brKJdL-iM_000093_000103.mp4",
+        "label": "golf chipping",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": 0.007285525090992451,
+        "std": 1.8362903594970703,
+        "token_variance": 1.3554326295852661,
+        "inference_seconds": 0.2460942529141903,
+        "peak_allocated_bytes": 11439020032,
+        "peak_reserved_bytes": 11945377792
+      },
+      {
+        "filename": "-1GRj5UvVBA_000025_000035.mp4",
+        "label": "giving or receiving award",
+        "input_shape": [
+          1,
+          3,
+          16,
+          384,
+          384
+        ],
+        "frame_indices": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25,
+          29,
+          34,
+          38,
+          42,
+          46,
+          51,
+          55,
+          59,
+          63
+        ],
+        "feature_shape": [
+          1,
+          4608,
+          1664
+        ],
+        "mean": 0.01785869337618351,
+        "std": 1.803417682647705,
+        "token_variance": 1.4268063306808472,
+        "inference_seconds": 0.24625742807984352,
+        "peak_allocated_bytes": 11439020032,
+        "peak_reserved_bytes": 11945377792
+      }
+    ],
+    "inference_summary": {
+      "samples": 16,
+      "passed": true,
+      "embedding_shape": [
+        16,
+        1664
+      ],
+      "between_clip_variance": 0.5507508516311646,
+      "max_peak_allocated_bytes": 11446638592,
+      "max_peak_reserved_bytes": 11945377792,
+      "mean_inference_seconds": 0.26641663652844727
+    },
+    "loading": {
+      "checkpoint": "artifacts/readiness/checkpoints/vjepa2_1_vitG_384.pt",
+      "checkpoint_keys": [
+        "encoder",
+        "predictor",
+        "opt",
+        "scaler",
+        "target_encoder",
+        "epoch",
+        "loss",
+        "batch_size",
+        "world_size",
+        "lr"
+      ],
+      "factory": "src.hub.backbones.vjepa2_1_vit_gigantic_384",
+      "strict": true,
+      "encoder": {
+        "parameters": 1845216768,
+        "state_tensors": 590,
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "predictor": {
+        "parameters": 59433472,
+        "state_tensors": 308,
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "seconds": 34.229775520041585
+    },
+    "run": {
+      "mode": "inference",
+      "seed": 20260909,
+      "torch": "2.8.0+cu128",
+      "cuda": "12.8",
+      "gpu": "NVIDIA RTX PRO 4500 Blackwell",
+      "commit": "661a3304d364cd3d4972cb5c4ea3ce1c5fa7dcad",
+      "parameter_dtype": "float32",
+      "autocast_dtype": "bfloat16",
+      "attention": "native SDPA",
+      "frames": 16,
+      "frame_step": 4,
+      "resolution": 384,
+      "batch_size": 1,
+      "temporal_segments": 1,
+      "spatial_view": "center of native three-view transform"
+    }
+  },
+  "backward": {
+    "backward": {
+      "passed": true,
+      "loss": 2.2144155502319336,
+      "objective": "Seeded fixed projection of pooled features, MSE to fixed random target",
+      "optimizer_step": false,
+      "activation_checkpointing": true,
+      "trainable_parameters": 1845216768,
+      "gradient_parameters": 1843925504,
+      "missing_gradients": [],
+      "nonfinite_gradients": [],
+      "zero_gradient_tensors": [],
+      "expected_unused": [
+        "img_mod_embed",
+        "patch_embed_img.proj.weight",
+        "patch_embed_img.proj.bias",
+        "norms_block.0.weight",
+        "norms_block.0.bias",
+        "norms_block.1.weight",
+        "norms_block.1.bias",
+        "norms_block.2.weight",
+        "norms_block.2.bias"
+      ],
+      "gradient_norms": {
+        "patch_embed.proj.weight": 1.6485929489135742,
+        "blocks.0.attn.qkv.weight": 0.8185526728630066,
+        "blocks.47.attn.qkv.weight": 2.224754571914673,
+        "norms_block.3.weight": 0.6368897557258606
+      },
+      "forward_backward_seconds": 1.3915881011635065,
+      "peak_allocated_bytes": 15275210752,
+      "peak_reserved_bytes": 17288921088
+    },
+    "loading": {
+      "checkpoint": "artifacts/readiness/checkpoints/vjepa2_1_vitG_384.pt",
+      "checkpoint_keys": [
+        "encoder",
+        "predictor",
+        "opt",
+        "scaler",
+        "target_encoder",
+        "epoch",
+        "loss",
+        "batch_size",
+        "world_size",
+        "lr"
+      ],
+      "factory": "src.hub.backbones.vjepa2_1_vit_gigantic_384",
+      "strict": true,
+      "encoder": {
+        "parameters": 1845216768,
+        "state_tensors": 590,
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "predictor": {
+        "parameters": 59433472,
+        "state_tensors": 308,
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "seconds": 34.618933629244566
+    },
+    "run": {
+      "mode": "backward",
+      "seed": 20260909,
+      "torch": "2.8.0+cu128",
+      "cuda": "12.8",
+      "gpu": "NVIDIA RTX PRO 4500 Blackwell",
+      "commit": "661a3304d364cd3d4972cb5c4ea3ce1c5fa7dcad",
+      "parameter_dtype": "float32",
+      "autocast_dtype": "bfloat16",
+      "attention": "native SDPA",
+      "frames": 16,
+      "frame_step": 4,
+      "resolution": 384,
+      "batch_size": 1,
+      "temporal_segments": 1,
+      "spatial_view": "center of native three-view transform"
+    }
+  },
+  "artifact_audit": {
+    "passed": true,
+    "saved_dense_features_match_pooled_exactly": true,
+    "saved_feature_shapes_and_finiteness": "verified for both smoke and inference artifacts",
+    "manifest_order": "verified for all 16 pooled embeddings",
+    "cgroup_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+  },
+  "final_checks": {
+    "pytest": "26 passed, 19 warnings in 63.76s",
+    "cuda_tests": "executed (not skipped)",
+    "isort": "passed",
+    "black": "passed",
+    "flake8": "passed",
+    "bash_syntax": "passed",
+    "checkpoint_second_sha256_check": "artifacts/readiness/checkpoints/vjepa2_1_vitG_384.pt: OK",
+    "post_validation_changes": "Only formatting/import ordering in Python scripts; normalized AST comparison passed",
+    "runtime_pins_after_dev_tools": "all match"
+  }
+}

@@ -1,10 +1,11 @@
 """Resume the official checkpoint with four independent HTTP range requests."""
-from concurrent.futures import ThreadPoolExecutor, as_completed
+
 import hashlib
 import json
 import os
-from pathlib import Path
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
 
 import requests
 
@@ -25,8 +26,9 @@ def write_state(state):
 def fetch_range(start, end):
     for attempt in range(5):
         try:
-            with requests.get(URL, headers={"Range": f"bytes={start}-{end}"},
-                              stream=True, timeout=(30, 120)) as response:
+            with requests.get(
+                URL, headers={"Range": f"bytes={start}-{end}"}, stream=True, timeout=(30, 120)
+            ) as response:
                 response.raise_for_status()
                 expected = f"bytes {start}-{end}/{SIZE}"
                 if response.status_code != 206 or response.headers.get("Content-Range") != expected:
@@ -70,10 +72,12 @@ def main():
             PART.touch(exist_ok=True)
             write_state(state)
         assert state["url"] == URL and state["size"] == SIZE
-        ranges = [(start, min(start + state["chunk_bytes"], SIZE) - 1)
-                  for start in range(state["prefix_bytes"], SIZE, state["chunk_bytes"])]
+        ranges = [
+            (start, min(start + state["chunk_bytes"], SIZE) - 1)
+            for start in range(state["prefix_bytes"], SIZE, state["chunk_bytes"])
+        ]
         pending = [(start, end) for start, end in ranges if str(start) not in state["completed"]]
-        print(f"Reusing {state['prefix_bytes']/1e9:.2f} GB prefix; {len(pending)} ranges remain", flush=True)
+        print(f"Reusing {state['prefix_bytes'] / 1e9:.2f} GB prefix; {len(pending)} ranges remain", flush=True)
         with ThreadPoolExecutor(max_workers=4) as pool:
             futures = [pool.submit(fetch_range, start, end) for start, end in pending]
             for future in as_completed(futures):

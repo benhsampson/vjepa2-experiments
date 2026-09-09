@@ -1,0 +1,11 @@
+{
+  "pytest": "26 passed, 19 warnings in 63.76s",
+  "cuda_tests": "executed (not skipped)",
+  "isort": "passed",
+  "black": "passed",
+  "flake8": "passed",
+  "bash_syntax": "passed",
+  "checkpoint_second_sha256_check": "artifacts/readiness/checkpoints/vjepa2_1_vitG_384.pt: OK",
+  "post_validation_changes": "Only formatting/import ordering in Python scripts; normalized AST comparison passed",
+  "runtime_pins_after_dev_tools": "all match"
+}

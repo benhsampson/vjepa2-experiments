@@ -21,6 +21,10 @@ Rabbat*, Nicolas Ballas*
 
 Official Pytorch codebase for V-JEPA 2, V-JEPA 2-AC, V-JEPA 2.1.
 
+For this fork's reproducible environment setup, original 2B checkpoint validation,
+Kinetics subset inference, and GPU backward check, see the
+[V-JEPA 2.1 readiness runbook](docs/vjepa2_1_readiness.md).
+
 V-JEPA 2 is a self-supervised approach to training video encoders, using internet-scale video data, that attains state-of-the-art performance on motion understanding and human action anticipation tasks. V-JEPA 2-AC is a latent action-conditioned world model post-trained from V-JEPA 2 (using a small amount of robot trajectory interaction data) that solves robot manipulation tasks without environment-specific data collection or task-specific training or calibration.
 
 <p align="center">

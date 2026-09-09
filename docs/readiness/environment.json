@@ -574,5 +574,8 @@
     }
   ],
   "pip_check": "No broken requirements found.",
-  "setup_final_exit_code": 0
+  "setup_final_exit_code": 0,
+  "container_cpu_max": "1020000 100000",
+  "container_memory_max_bytes": 61999996928,
+  "container_cpu_quota_cores": 10.2
 }

@@ -3,14 +3,14 @@
 The PyPI wheel is named py3-none-manylinux2010_x86_64 but embeds a cp36 tag.
 Only installation metadata is repaired; decoder binaries and Python code are unchanged.
 """
+
 import base64
 import csv
 import hashlib
 import importlib.metadata
 import io
-from pathlib import Path
 import sys
-
+from pathlib import Path
 
 distribution = importlib.metadata.distribution("decord")
 assert distribution.version == "0.6.0"

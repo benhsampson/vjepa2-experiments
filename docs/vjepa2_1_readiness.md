@@ -4,7 +4,7 @@ This process validates Meta's original V-JEPA 2.1 ViT-G/16 at 384 pixels
 (approximately 2B parameters) in this repository's native PyTorch modules. It covers
 installation, strict encoder/predictor loading, 16 real training-dataset videos,
 two-sample smoke testing, feature extraction, and one full video-encoder backward pass.
-GPU results are being collected; the final section records measured outcomes.
+The final section records measured outcomes and links to the evidence.
 
 ## 1. Machine and storage
 
@@ -17,7 +17,8 @@ Initial source commit: `8bce8c9`. Record the current commit on each reproduction
 | NVIDIA driver | 580.159.04; nvidia-smi reports CUDA 13.0 driver capability |
 | PyTorch runtime | 2.8.0+cu128, CUDA runtime 12.8; already supports sm_120 |
 | torchvision / torchaudio | 0.23.0+cu128 / 2.8.0+cu128 |
-| CPU / RAM | AMD EPYC 7443P, 48 logical CPUs, 251 GiB RAM |
+| Host CPU / RAM | AMD EPYC 7443P, 48 logical CPUs, 251 GiB RAM |
+| Container limits | 10.2 CPU cores of quota; 61,999,996,928 bytes RAM (57.7 GiB) |
 | Python / uv | `/usr/local/bin/python`, Python 3.12.3; uv 0.9.0 |
 | Workspace | `/workspace/vjepa2`, persistent network filesystem |
 | Root filesystem | 30 GB total, about 28 GB initially free |
@@ -120,7 +121,9 @@ contiguous curl partial file can be reused when no range state exists. The final
 file must match the byte count and recorded full SHA-256.
 
 Initially curl sustained about 24 MiB/s; the range downloader reused its first
-6.01 GB instead of restarting. The downloader prints progress and the full checksum.
+6.01 GB instead of restarting. The downloader prints progress and the full checksum. The verified SHA-256 is
+`7aae1a3c7a31d258af9c985388b5d2f20587469380f2e11b54d7876ac8cfe58a`,
+also recorded in [checkpoint.sha256](readiness/checkpoint.sha256).
 
 ## 4. Download the exact 16-video subset
 
@@ -159,7 +162,10 @@ cd /workspace/vjepa2
 This constructs `vjepa2_1_vit_gigantic_384(pretrained=False)` on CPU and strictly
 loads both `target_encoder` and `predictor` from the checkpoint. Only native prefix
 cleanup is applied. Missing, unexpected, or mismatched tensors fail the run. The
-predictor is then released and the encoder moved to CUDA.
+predictor is then released and the encoder moved to CUDA. The checkpoint is loaded
+with `mmap=True, weights_only=True`, using eight CPU threads. It contains both encoder
+copies, predictor, optimizer, scaler, and training metadata, explaining its much
+larger disk size than the inference model.
 
 Explicit loading bypasses the existing
 `VJEPA_BASE_URL = "http://localhost:8300"` in `src/hub/backbones.py`. Its public
@@ -224,6 +230,70 @@ forward/backward time, GPU peaks, participating parameter count, and gradient
 checks. This establishes backward compatibility, not convergence or the memory
 needed for Adam states, an EMA teacher, or self-supervised predictor training.
 
+## 8. Repeat the repository and style checks
+
+These optional developer tools are separate from the runtime overlay. Installing
+with `--no-deps` preserves the inherited runtime versions; their full additional
+dependency set is pinned in the developer lock.
+
+```bash
+cd /workspace/vjepa2
+UV_CACHE_DIR="$PWD/.cache/uv" uv pip install --python .venv/bin/python --no-deps -r docs/readiness/requirements-dev.lock
+.venv/bin/python -m pip check
+OMP_NUM_THREADS=8 MKL_NUM_THREADS=8 .venv/bin/python -m pytest tests -q
+.venv/bin/python -m isort scripts/readiness --check
+.venv/bin/python -m black scripts/readiness --check
+.venv/bin/python -m flake8 --config .flake8 scripts/readiness
+sha256sum --check docs/readiness/checkpoint.sha256
+```
+
+The repository suite passed **26 tests in 63.76 seconds**, including its CUDA tests.
+The 19 warnings concern deprecated upstream timm/PyTorch interfaces. isort, black,
+flake8, shell syntax checks, and `git diff --check` passed for this work.
+
 ## Results
 
-Measured GPU results and final reproduction checks will be added after execution.
+All requested validation stages passed on 2026-09-09 using the supplied image.
+The native model source was unchanged. Commands executed from source commit
+`661a3304d364cd3d4972cb5c4ea3ce1c5fa7dcad`; later commits add documentation, evidence,
+and script formatting/import ordering. An AST comparison confirmed the validation
+logic is unchanged after formatting.
+
+| Check | Measured result |
+| --- | --- |
+| Final locked setup rerun | Exit 0; dependency consistency, exact versions, imports, CUDA all passed |
+| Strict encoder load | 1,845,216,768 parameters; 590 tensors; no missing/unexpected keys |
+| Strict predictor load | 59,433,472 parameters; 308 tensors; no missing/unexpected keys |
+| Total released modules | 1,904,650,240 parameters (advertised as 2B) |
+| Dataset | 16 clips, 16 classes, 21.2 MB; fresh manifest replay matched every SHA-256 |
+| Inference | 16/16 passed; dense shape `[1, 4608, 1664]`; pooled shape `[16, 1664]` |
+| Repeat consistency | Maximum absolute feature difference 0.0 in both inference runs |
+| GPU forward time | 0.266 s/clip including first-call warmup; 0.246 s/clip excluding it |
+| Inference GPU peak | 10.66 GiB allocated; 11.12 GiB reserved |
+| Full encoder backward | Passed; 1,843,925,504 parameters received gradients |
+| Gradient diagnostics | No unexpected missing, nonfinite, or zero-gradient tensors |
+| Backward GPU peak | 14.23 GiB allocated; 16.10 GiB reserved |
+| Forward + backward time | 1.392 s; diagnostic loss 2.214416 |
+| Container OOM events | Zero |
+| Repository test suite | 26 passed, 19 deprecation warnings |
+| New-script style checks | isort, black, and flake8 passed |
+
+Timing covers synchronized GPU forwards or forward/backward, excluding CPU model
+construction, checkpoint loading, video decoding, and file writes. CUDA memory
+measurements cover those same GPU workloads, including resident model parameters.
+Reserved memory is allocator reservation, not an additional allocation to add to
+allocated memory. This was a single-GPU, batch-one, 16-frame experiment.
+
+Machine-readable evidence is committed in [results.json](readiness/results.json),
+[environment.json](readiness/environment.json), and
+[dataset-validation.json](readiness/dataset-validation.json). Large tensors, weights,
+and videos remain local and can be regenerated with the numbered commands above.
+Saved dense tensors were independently reloaded and checked against pooled embeddings;
+all shapes, finiteness, filenames, and ordering matched exactly. A second full-file
+SHA-256 check validates the retained checkpoint.
+
+This establishes a working native-code, real-data inference and gradient pipeline
+for subsequent fine-tuning experiments. It does not establish representation quality
+on a target task, optimizer/EMA memory requirements, or training convergence. The
+next experiment can select a task, objective, and trainable parameters using these
+measured memory requirements as its baseline.
