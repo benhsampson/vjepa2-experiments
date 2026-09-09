@@ -33,5 +33,6 @@ configs/local
 
 # Local readiness environment, downloads, and generated features.
 .venv/
+.venv-isolated/
 .cache/
 artifacts/

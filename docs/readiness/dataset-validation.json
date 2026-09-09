@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "count": 16,
+  "classes": 16,
+  "bytes": 21217438,
+  "rejected": [],
+  "fresh_download_replay": "All 16 independent downloads match manifest SHA-256s",
+  "native_preprocessing": "All 16 clips passed native decoding, exact sampling-index and [1,3,16,384,384] checks"
+}
